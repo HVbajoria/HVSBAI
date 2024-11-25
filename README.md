@@ -2,7 +2,7 @@
 ### Installation Instructions
 1. Clone the repository:
    ```bash
-    git clone <repository_url>
+    git clone https://github.com/HVbajoria/HVSBAI.git
     cd HVSBAI
 
 2. Create a virtual environment:
