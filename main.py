@@ -29,7 +29,7 @@ speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audi
 doc = Document()
 doc.add_heading('Interview Conversation', 0)
 
-genai.configure(api_key="YOUR_API_KEY")
+genai.configure(api_key="AIzaSyB09O3Vt_I3YGfH1pFn5wSoVoonBRUIlqQ")
 
 # Create the model
 generation_config = {
