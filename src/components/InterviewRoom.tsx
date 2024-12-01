@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Camera, CameraOff, Mic, MicOff, PhoneOff } from 'lucide-react';
+import { Camera, CameraOff, PhoneOff } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from './ui/Button';
 import { useInterviewStore } from '../store/interviewStore';
@@ -247,9 +247,9 @@ function isAzureOpenAI(): boolean {
   return true;
 }
 
-function getSystemMessage(): string {
-  return  "";
-}
+// function getSystemMessage(): string {
+//   return  "";
+// }
 
 function getTemperature(): number {
   return 0.7;
@@ -282,7 +282,6 @@ function appendToTextBlock(text: string) {
   const chunksRef = useRef<Blob[]>([]);
   const [isVideoOn, setIsVideoOn] = useState(true);
   // const [isAudioOn, setIsAudioOn] = useState(true);
-  const [transcript, setTranscript] = useState<string[]>([]);
   const [isInterviewStarted, setIsInterviewStarted] = useState(false);
   const { addPastInterview } = useInterviewStore();
 

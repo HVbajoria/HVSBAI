@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { FileText, Clock, Activity, Video } from 'lucide-react';
 import { useInterviewStore } from '../store/interviewStore';
