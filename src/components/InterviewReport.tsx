@@ -115,7 +115,7 @@ export function InterviewReport() {
               <Activity className="h-5 w-5" />
               <h2 className="text-xl font-semibold">Performance Evaluation</h2>
             </div>
-            <div className="text-gray-400">{interview.feedback}</div>
+            <div className="text-gray-400" dangerouslySetInnerHTML={{ __html: interview.feedback }}></div>
           </div>
         </div>
       </div>
