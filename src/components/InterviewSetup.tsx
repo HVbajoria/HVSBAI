@@ -9,7 +9,7 @@ export function InterviewSetup() {
   const [selectedRole, setSelectedRole] = useState<Role>('SDE');
   const [skills, setSkills] = useState<string[]>([]);
   const [newSkill, setNewSkill] = useState('');
-
+  
   const handleAddSkill = () => {
     if (newSkill.trim() && !skills.includes(newSkill.trim())) {
       setSkills([...skills, newSkill.trim()]);
@@ -42,14 +42,16 @@ export function InterviewSetup() {
             <div className="mt-1 relative">
               <select
                 value={selectedRole}
-                onChange={(e) => setSelectedRole(e.target.value as Role)}
+                onChange={(e) => {
+                  setSelectedRole(e.target.value as Role);
+                }}
                 className="block w-full pl-3 pr-10 py-2 text-white bg-gray-700 border-gray-600 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
               >
                 <option value="SDE">SDE</option>
                 <option value="Marketing Manager">Marketing Manager</option>
                 <option value="Sales Executive">Sales Executive</option>
               </select>
-              <ChevronDown className="absolute right-3 top-2.5 h-5 w-5 text-gray-400" />
+              {/* <ChevronDown className="absolute right-3 top-2.5 h-5 w-5 text-gray-400" /> */}
             </div>
           </div>
 

@@ -15,7 +15,7 @@ export function Navbar() {
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center">
               <img
-                src="https://d8it4huxumps7.cloudfront.net/uploads/images/674b6ae35bdd4_unstop_logo_blue_extra_large.jpg"
+                src="https://d8it4huxumps7.cloudfront.net/uploads/images/unstop/branding-guidelines/logos/white/Unstop-Logo-White-Medium.png"
                 alt="Unstop Logo"
                 className="h-8 w-auto"
               />

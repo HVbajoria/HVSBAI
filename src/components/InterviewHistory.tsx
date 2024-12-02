@@ -49,16 +49,7 @@ export function InterviewHistory() {
                     </div>
                   </div>
                   <div className="flex space-x-2">
-                    {interview.videoUrl && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="border-gray-600 text-gray-300 hover:bg-gray-700"
-                      >
-                        <Video className="h-4 w-4 mr-2" />
-                        View Recording
-                      </Button>
-                    )}
+                    
                     <Button
                       onClick={() => navigate(`/interview-report/${interview.id}`)}
                       className="bg-blue-600 hover:bg-blue-700"
