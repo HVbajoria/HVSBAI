@@ -39,7 +39,10 @@ function saveHtml(html: string, fileName: string) {
   a.href = url;
   a.download = fileName;
   a.click();
-  feedbackready=false;
+  
+  setTimeout(() => {
+  feedbackready = false;
+}, 2000);
 }
 
 async function convertHtmlToPdf(htmlContent: string) {
@@ -60,6 +63,9 @@ async function convertHtmlToPdf(htmlContent: string) {
       transcript: transcription,
       feedback: html
     });
+    setTimeout(() => {
+      realtimeStreaming.close();
+    }, 4 * 60 * 1000);
     saveHtml(htmlContent, "feedback.html");
 }
 
@@ -95,7 +101,8 @@ async function start_realtime(endpoint: string, apiKey: string, deploymentOrMode
 
   try {
     if (selectedRole=='Marketing Manager'){
-      await realtimeStreaming.send(createConfigMessage("Act like an interviewer named Harshavardhan, conducting a job interview for a Marketing manager position at Unstop, focusing on SEO & SEM, market research, people skills, partner management, as well as communication and problem-solving abilities. # Steps 1. **Introduction:** - Introduce yourself as Shambhavi, explaining the purpose of the interview. - Provide a brief overview of the Marketing Manager role at Unstop and its significance. 2. **Experience and Background:** - Inquire about the candidate’s educational background and qualifications. - Ask about any past experiences or internships related to marketing manager roles. - Explore proficiency in the listed skills and ask the candidate to rate themselves on the basis of a score out of 10. 3. **Required Skills:** - Ask three objective based MCQ questions with 4 options along with proper reasoning of why you chose the particular answer and take that into consideration for evaluation also. - Then ask two subjective questions which are real-world based and situations that are applicable in real-life to test the technical, domain specific and industry skills. 4. **Access the soft skills:** Access the soft skills of the candidate. 5. **Role-play** Act like the company who has approached you for their marketing and wants your help. Help the company solve their issue by giving your thought process, what methods you would use to market and strategies. Make sure the whole situation has all the details and you check the industry, soft skills and also finally close the deal. Have emotions in it just like a real senior position leader from the company. 5. **Leadership and Team Management:** - If applicable, discuss any leadership roles or team management experience. - Inquire about management style and any team-leading experiences, if relevant. 6. **Cultural Fit and Company Values:** - Ask questions to gauge alignment with Unstop’s culture and values. - Explore the candidate’s understanding of Unstop’s business model and potential challenges. 7. **Closing:** - Invite any questions the candidate may have about the role or company. - Provide information on the next steps in the hiring process."));
+      await realtimeStreaming.send(createConfigMessage("Act like an interviewer named Shambhavi, conducting a job interview for a Marketing manager position at Unstop, focusing on SEO & SEM, market research, people skills, partner management, as well as communication and problem-solving abilities. # Steps 1. **Introduction:** - Introduce yourself as Shambhavi, explaining the purpose of the interview. - Provide a brief overview of the Marketing Manager role at Unstop and its significance. 2. **Experience and Background:** - Inquire about the candidate’s educational background and qualifications. - Ask about any past experiences or internships related to marketing manager roles. - Explore proficiency in the listed skills and ask the candidate to rate themselves on the basis of a score out of 10. 3. **Required Skills:** - Ask three objective based MCQ questions with 4 options along with proper reasoning of why you chose the particular answer and take that into consideration for evaluation also. - Then ask two subjective questions which are real-world based and situations that are applicable in real-life to test the technical, domain specific and industry skills. 4. **Access the soft skills:** Access the soft skills of the candidate. 5. **Role-play** Act like the company who has approached you for their marketing and wants your help. Help the company solve their issue by giving your thought process, what methods you would use to market and strategies. Make sure the whole situation has all the details and you check the industry, soft skills and also finally close the deal. Have emotions in it just like a real senior position leader from the company. 5. **Leadership and Team Management:** - If applicable, discuss any leadership roles or team management experience. - Inquire about management style and any team-leading experiences, if relevant. 6. **Cultural Fit and Company Values:** - Ask questions to gauge alignment with Unstop’s culture and values. - Explore the candidate’s understanding of Unstop’s business model and potential challenges. 7. **Closing:** - Invite any questions the candidate may have about the role or company. - Provide information on the next steps in the hiring process."));
+      
       skills.push('SEO & SEM');
       skills.push('Market Research');
       skills.push('People Skills');
@@ -127,8 +134,9 @@ async function start_realtime(endpoint: string, apiKey: string, deploymentOrMode
    - Ask about times when they faced challenging sales situations and how they resolved them.
 
 5. **Role-Play:**
-   - Engage in a role-play as a hesitant client named Shambhavi, depicting frustration due to previous service issues. Assess the candidate’s ability to build rapport, emphasize value, address concerns, and attempt to close the deal.
-   - Follow up with questions to evaluate empathy, negotiation skills, and professionalism.
+   - Engage in a role-play conversation as a hesitant client named Shambhavi, depicting frustration due to previous service issues. Assess the candidate’s ability to build rapport, emphasize value, address concerns, and attempt to close the deal.
+   - Follow up with atleast 3-4 questions acting like Shambhavi and as if you are conversing with the candidate to evaluate empathy, negotiation skills, and professionalism. 
+   - Donot forget to close the deal. and make it conversational not asking any question after Shambhavi's conversation.
 
 6. **Behavioral Assessment:**
    - Use behavioral questions to evaluate the candidate’s work ethic, resilience, and adaptability.
@@ -185,7 +193,7 @@ function createConfigMessage(instruction: string) : SessionUpdateMessage {
       },
       "turn_detection": {
         "threshold": 0.7,
-        "silence_duration_ms": 1000,
+        "silence_duration_ms": 1500,
         "type": "server_vad"
       },
     }
@@ -354,16 +362,16 @@ function isAzureOpenAI(): boolean {
 // }
 
 function getTemperature(): number {
-  return 0.7;
+  return 0.8;
 }
 
 function getVoice(): Voice {
   if (selectedRole == 'SDE')
     return "echo" as Voice;
   else if (selectedRole == 'Marketing Manager')
-    return "echo" as Voice;
-  else if (selectedRole == 'Sales Executive')
     return "shimmer" as Voice;
+  else if (selectedRole == 'Sales Executive')
+    return "echo" as Voice;
   else
   return "shimmer" as Voice;
 }
@@ -497,6 +505,23 @@ function appendToTextBlock(text: string) {
     } catch (error) {
       console.log(error);
     }
+    realtimeStreaming.send(
+      {
+        "type":"conversation.item.create",
+        "item":{
+           "type":"message",
+           "role":"user",
+           "content":[
+              {
+                 "type":"input_text",
+                 "text":"Hello!"
+              }
+           ]
+        }
+     });
+     realtimeStreaming.send({
+      type: "response.create",
+    });
   };
 
   const endInterview = async() => {
@@ -586,10 +611,7 @@ console.log('Feedback config has been sent');
     realtimeStreaming.send({
       type: "response.create",
     });
-  }, 1000);
-  setTimeout(() => {
-    realtimeStreaming.close();
-  }, 25000);
+  }, 2000);
   navigate('/interview-history');
   };
 
@@ -632,17 +654,21 @@ console.log('Feedback config has been sent');
           </div>
         </div>
         <div 
-          className="flex-1 relative bg-gray-800 rounded-lg flex items-center justify-center h-[35vh] rounded-[25px]"
+        className="flex-1 relative bg-gray-800 rounded-lg flex items-center justify-center h-[35vh] rounded-[25px]"
         >
           <img
-            src="https://d8it4huxumps7.cloudfront.net/uploads/images/674d4a4ad369d_harshavardhan_bajoria.jpg"
-            alt="AI Interviewer"
-            className="w-32 h-32 rounded-full"
+          src={
+          selectedRole === "Marketing Manager"
+          ? "https://d8it4huxumps7.cloudfront.net/uploads/images/674dff6c31ab4_1719755339566.jpeg"
+          : "https://d8it4huxumps7.cloudfront.net/uploads/images/674d4a4ad369d_harshavardhan_bajoria.jpg"
+          }
+          alt="AI Interviewer"
+          className="w-32 h-32 rounded-full"
           />
           <div
-         className={`absolute inset-[0.2rem] rounded-[25px] border-2 border-blue-500 animate-pulse ${
-              isInterviewStarted ? 'opacity-100' : 'opacity-0'
-            }`}
+          className={`absolute inset-[0.2rem] rounded-[25px] border-2 border-blue-500 animate-pulse ${
+          isInterviewStarted ? 'opacity-100' : 'opacity-0'
+          }`}
           />
         </div>
         <div className="p-4 flex justify-center space-x-4">
@@ -671,6 +697,10 @@ console.log('Feedback config has been sent');
       >
         <h3 className="text-lg font-semibold mb-4">Transcript</h3>
         <hr />
+        <p>
+          <b>Interviewer:</b>
+          <br></br>
+        </p>
         <div className="space-y-4">
         </div>
       </div>

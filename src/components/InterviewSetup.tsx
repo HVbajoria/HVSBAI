@@ -6,7 +6,7 @@ import { Button } from './ui/Button';
 
 export function InterviewSetup() {
   const navigate = useNavigate();
-  const [selectedRole, setSelectedRole] = useState<Role>('SDE');
+  const [selectedRole, setSelectedRole] = useState<Role>('Sales Executive');
   const [skills, setSkills] = useState<string[]>([]);
   const [newSkill, setNewSkill] = useState('');
   
