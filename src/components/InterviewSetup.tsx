@@ -81,7 +81,7 @@ export function InterviewSetup() {
               {skills.map((skill) => (
                 <span
                   key={skill}
-                  className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-900 text-blue-200"
+                  className="inline-flex items-center px-2.5 py-2 rounded-full text-xs font-medium bg-blue-900 text-blue-200"
                 >
                   {skill}
                   <button

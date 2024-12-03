@@ -42,7 +42,7 @@ function saveHtml(html: string, fileName: string) {
   
   setTimeout(() => {
   feedbackready = false;
-}, 2000);
+}, 60000);
 }
 
 async function convertHtmlToPdf(htmlContent: string) {
@@ -65,7 +65,7 @@ async function convertHtmlToPdf(htmlContent: string) {
     });
     setTimeout(() => {
       realtimeStreaming.close();
-    }, 4 * 60 * 1000);
+    }, 50000);
     saveHtml(htmlContent, "feedback.html");
 }
 
@@ -248,6 +248,7 @@ async function handleRealtimeMessages() {
         break;
       case "conversation.item.input_audio_transcription.completed":
         const Content=message.transcript;
+        latestInputSpeechBlock.classList.add("user-prompts");
         latestInputSpeechBlock.innerHTML += " <b>User:</b><br>" + Content + "<br> <b>Interviewer:</b> ";
         const currentTimestamp = new Date();
         const hoursDifference = Math.floor((currentTimestamp.getTime() - startTimeStamp.getTime()) / (1000 * 60 * 60));
@@ -319,7 +320,7 @@ function processAudioRecordingBuffer(data: Buffer) {
     buffer = new Uint8Array(buffer.slice(4800));
     const regularArray = String.fromCharCode(...toSend);
     const base64 = btoa(regularArray);
-    if (recordingActive) {
+    if (recordingActive && !feedbackready) {
       realtimeStreaming.send({
         type: "input_audio_buffer.append",
         audio: base64,
@@ -426,7 +427,6 @@ function appendToTextBlock(text: string) {
 
   const setupMediaRecorder = (stream: MediaStream) => {
     startTime = Date.now();
-    startTimeStamp = new Date();
     console.log('Start Time:', startTime);
     const mediaRecorder = new MediaRecorder(stream, {
       mimeType: 'video/webm;codecs=vp8,opus',
@@ -477,6 +477,7 @@ function appendToTextBlock(text: string) {
   };
 
   const startInterview = async () => {
+    startTimeStamp = new Date();
     setIsInterviewStarted(true);
     if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'inactive') {
       mediaRecorderRef.current.start();
@@ -611,35 +612,61 @@ console.log('Feedback config has been sent');
     realtimeStreaming.send({
       type: "response.create",
     });
-  }, 2000);
+  }, 700);
   navigate('/interview-history');
   };
 
-  return (
-    <div className="h-screen bg-gray-900 text-white flex">
-      <div className="flex flex-col p-4 gap-4 h-full w-3/4">
-        <div className="flex-1 border border-gray-500 rounded-lg relative h-[55vh]">
-          <video
-            ref={videoRef}
-            autoPlay
-            muted
-            playsInline
-            className="w-full h-full object-cover rounded-lg bg-gray-800"
-          />
-          <div className="absolute bottom-4 left-4 space-x-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={toggleVideo}
-              className="bg-gray-800/50 hover:bg-gray-700/50"
-            >
-              {isVideoOn ? (
-                <Camera className="h-5 w-5" />
-              ) : (
-                <CameraOff className="h-5 w-5" />
-              )}
-            </Button>
-            {/* <Button
+  return (<React.Fragment>
+
+<div className="h-screen bg-gray-900 text-white">
+      <div className="header">
+        <img className="un_logo" src="https://d8it4huxumps7.cloudfront.net/uploads/images/unstop/svg/unstop-logo-white.svg"
+          width="80" />
+      </div>
+      <div className="wrapper flex">
+        <div className="flex flex-col p-4 gap-4 h-full w-full w-[calc(100%-610px)]">
+          <div className="wrapper_inner flex">
+            <div
+              className={`box ${isInterviewStarted ? 'ripple' : ''}`}>
+              <img
+                src="https://d8it4huxumps7.cloudfront.net/uploads/images/674d4a4ad369d_harshavardhan_bajoria.jpg"
+                alt="AI Interviewer"
+                className="circle-img"
+              />
+              
+                <div  className={`bars ${isInterviewStarted ? '' : 'd-none'}`}>
+                  <div className="bar animate"></div>
+                  <div className="bar animate"></div>
+                  <div className="bar animate"></div>
+                  <div className="bar animate"></div>
+                  <div className="bar animate"></div>
+                  <div className="bar animate"></div>
+                </div>
+              
+              
+            </div>
+            <div className="box relative ">
+              <video
+                ref={videoRef}
+                autoPlay
+                muted
+                playsInline
+                className="w-full h-full object-cover rounded-lg bg-gray-800"
+              />
+              <div className="absolute bottom-4  space-x-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={toggleVideo}
+                  className="bg-gray-800/50 hover:bg-gray-700/50"
+                >
+                  {isVideoOn ? (
+                    <Camera className="h-5 w-5" />
+                  ) : (
+                    <CameraOff className="h-5 w-5" />
+                  )}
+                </Button>
+                {/* <Button
               variant="outline"
               size="sm"
               onClick={toggleAudio}
@@ -651,59 +678,43 @@ console.log('Feedback config has been sent');
                 <MicOff className="h-5 w-5" />
               )}
             </Button> */}
+              </div>
+            </div>
+            <div className="btn_wrapper">
+              {!isInterviewStarted ? (
+                <Button onClick={startInterview} id="start-recording" className="bg-blue-600 hover:bg-blue-700">
+                  Start Interview
+                </Button>
+              ) : (
+                <Button
+                  variant="destructive"
+                  onClick={endInterview}
+                  id="stop-recording"
+                  className="bg-red-600 hover:bg-red-700"
+                >
+                  <PhoneOff className="h-5 w-5 mr-2" />
+                  End Interview
+                </Button>
+              )}
+            </div>
           </div>
         </div>
-        <div 
-        className="flex-1 relative bg-gray-800 rounded-lg flex items-center justify-center h-[35vh] rounded-[25px]"
-        >
-          <img
-          src={
-          selectedRole === "Marketing Manager"
-          ? "https://d8it4huxumps7.cloudfront.net/uploads/images/674dff6c31ab4_1719755339566.jpeg"
-          : "https://d8it4huxumps7.cloudfront.net/uploads/images/674d4a4ad369d_harshavardhan_bajoria.jpg"
-          }
-          alt="AI Interviewer"
-          className="w-32 h-32 rounded-full"
-          />
-          <div
-          className={`absolute inset-[0.2rem] rounded-[25px] border-2 border-blue-500 animate-pulse ${
-          isInterviewStarted ? 'opacity-100' : 'opacity-0'
-          }`}
-          />
-        </div>
-        <div className="p-4 flex justify-center space-x-4">
-          {!isInterviewStarted ? (
-            <Button onClick={startInterview} id="start-recording" className="bg-blue-600 hover:bg-blue-700">
-              Start Interview
-            </Button>
-          ) : (
-            <Button
-              variant="destructive"
-              onClick={endInterview}
-              id="stop-recording"
-              className="bg-red-600 hover:bg-red-700"
-            >
-              <PhoneOff className="h-5 w-5 mr-2" />
-              End Interview
-            </Button>
-          )}
-        </div>
-      </div>
 
-      <div 
-        className="w-1/3 bg-gray-800 p-4 gap-4 overflow-y-auto border border-gray-500 rounded-lg h-full" 
-        id="received-text-container"
-        style={{ margin: '1rem', marginLeft: 0, height: 'calc(100vh - 2rem)' }}
-      >
-        <h3 className="text-lg font-semibold mb-4">Transcript</h3>
-        <hr />
-        <p>
-          <b>Interviewer:</b>
-          <br></br>
-        </p>
-        <div className="space-y-4">
+        <div className="chat-panel">
+          <div className="panel_head">
+            <h3>Transcript</h3>
+          </div>
+          
+          <div className="panel-body" id="received-text-container">
+          {isInterviewStarted ? (
+                <p>Interviewer:</p>
+              ) : (
+                ''
+              )}
+          </div>
         </div>
       </div>
     </div>
+  </React.Fragment>
   );
 }
