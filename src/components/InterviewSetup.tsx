@@ -70,6 +70,12 @@ export function InterviewSetup() {
           setSkills(prevSkills => [...prevSkills, skill]);
       });
     }
+    else if (selectedRole === 'Marketing Manager (Demo)') {
+      setSkills([]);
+      predefinedmarketingSkills.forEach(skill => {
+        setSkills(prevSkills => [...prevSkills, skill]);
+    });
+    }
     else {
       setSkills([]);
     }
@@ -116,6 +122,7 @@ export function InterviewSetup() {
                 <option value="SDE">SDE</option>
                 <option value="Marketing Manager">Marketing Manager</option>
                 <option value="Marketing Manager (Long Form)">Marketing Manager (Long Form)</option>
+                <option value="Marketing Manager (Demo)">Marketing Manager (Demo)</option>
                 <option value="Sales Executive">Sales Executive</option>
               </select>
               {/* <ChevronDown className="absolute right-3 top-2.5 h-5 w-5 text-gray-400" /> */}
