@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronDown, Plus, X } from 'lucide-react';
 import { Role } from '../types/interview';
@@ -9,7 +9,73 @@ export function InterviewSetup() {
   const [selectedRole, setSelectedRole] = useState<Role>('Sales Executive');
   const [skills, setSkills] = useState<string[]>([]);
   const [newSkill, setNewSkill] = useState('');
-  
+
+  const predefinedmarketingSkills = [
+    'Marketing Strategy',
+    'Business Development',
+    'Data Analysis',
+    'Communication',
+    'Market Research'
+  ];
+
+  const predefinedSDESkills = [
+    'Python',
+    'Problem Solving',
+    'Angular',
+    'Data Structures & Algorithms',
+    'Computer Fundamentals'
+  ];
+
+  const predefinedSalesSkills = [
+    'Sales',
+    'Business Development',
+    'Negotiation',
+    'Communication',
+    'Market Research'
+  ];
+
+  const predefinedMarketingManagerLongFormSkills = [
+    'Marketing Strategy',
+    'Business Development',
+    'Data Analysis',
+    'Communication',
+    'Leadership',
+    'Market Research',
+    'Sales',
+    'Content Creation'
+  ];
+
+  useEffect(() => {
+    if (selectedRole === 'Marketing Manager') {
+      setSkills([]);
+      predefinedmarketingSkills.forEach(skill => {
+          setSkills(prevSkills => [...prevSkills, skill]);
+      });
+    } 
+    else if (selectedRole === 'SDE') {
+      setSkills([]);
+      predefinedSDESkills.forEach(skill => {
+          setSkills(prevSkills => [...prevSkills, skill]);
+      });
+    }
+    else if (selectedRole === 'Sales Executive') {
+      setSkills([]);
+      predefinedSalesSkills.forEach(skill => {
+          setSkills(prevSkills => [...prevSkills, skill]);
+      });
+    }
+    else if (selectedRole === 'Marketing Manager (Long Form)') {
+      setSkills([]);
+      predefinedMarketingManagerLongFormSkills.forEach(skill => {
+          setSkills(prevSkills => [...prevSkills, skill]);
+      });
+    }
+    else {
+      setSkills([]);
+    }
+    console.log(skills);
+  }, [selectedRole]);
+
   const handleAddSkill = () => {
     if (newSkill.trim() && !skills.includes(newSkill.trim())) {
       setSkills([...skills, newSkill.trim()]);
@@ -49,6 +115,7 @@ export function InterviewSetup() {
               >
                 <option value="SDE">SDE</option>
                 <option value="Marketing Manager">Marketing Manager</option>
+                <option value="Marketing Manager (Long Form)">Marketing Manager (Long Form)</option>
                 <option value="Sales Executive">Sales Executive</option>
               </select>
               {/* <ChevronDown className="absolute right-3 top-2.5 h-5 w-5 text-gray-400" /> */}
