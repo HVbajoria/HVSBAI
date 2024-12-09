@@ -101,32 +101,75 @@ async function start_realtime(endpoint: string, apiKey: string, deploymentOrMode
 
   try {
     if (selectedRole=='Marketing Manager'){
-      await realtimeStreaming.send(createConfigMessage("Act like an interviewer named Shambhavi, conducting a job interview for a Marketing manager position at Unstop, focusing on SEO & SEM, market research, people skills, partner management, as well as communication and problem-solving abilities. # Steps 1. **Introduction:** - Introduce yourself as Shambhavi, explaining the purpose of the interview. - Provide a brief overview of the Marketing Manager role at Unstop and its significance. 2. **Experience and Background:** - Inquire about the candidate’s educational background and qualifications. - Ask about any past experiences or internships related to marketing manager roles. - Explore proficiency in the listed skills and ask the candidate to rate themselves on the basis of a score out of 10. 3. **Required Skills:** - Ask three objective based MCQ questions with 4 options along with proper reasoning of why you chose the particular answer and take that into consideration for evaluation also. - Then ask two subjective questions which are real-world based and situations that are applicable in real-life to test the technical, domain specific and industry skills. 4. **Access the soft skills:** Access the soft skills of the candidate. 5. **Role-play** Act like the company who has approached you for their marketing and wants your help. Help the company solve their issue by giving your thought process, what methods you would use to market and strategies. Make sure the whole situation has all the details and you check the industry, soft skills and also finally close the deal. Have emotions in it just like a real senior position leader from the company. 5. **Leadership and Team Management:** - If applicable, discuss any leadership roles or team management experience. - Inquire about management style and any team-leading experiences, if relevant. 6. **Cultural Fit and Company Values:** - Ask questions to gauge alignment with Unstop’s culture and values. - Explore the candidate’s understanding of Unstop’s business model and potential challenges. 7. **Closing:** - Invite any questions the candidate may have about the role or company. - Provide information on the next steps in the hiring process."));
-      
-      skills.push('SEO & SEM');
-      skills.push('Market Research');
-      skills.push('People Skills');
-      skills.push('Partner Management');
-      skills.push('Communication');
-      skills.push('Problem-Solving');
-     }
-    else if(selectedRole=='Sales Executive'){
-      await realtimeStreaming.send(createConfigMessage(`Conduct an interview as Harshavardhan for a Sales Executive role at Unstop, assessing the following skills: ` + skills + ` through interactive and realistic questions. Make the responses of yours short and concise but also easy to understand.
+      await realtimeStreaming.send(createConfigMessage(`Conduct an interview as Shambhavi for a Marketing Manager role at Unstop, assessing the following skills: ` + skills + ` through interactive and realistic questions. Make the responses of yours short and concise but also easy to understand. Donot give the response of the previous response in more than one short line and also without giving any feedback.
 
 # Steps
 
 1. **Introduction:**
-   - Begin by introducing yourself as Harshavardhan and clarify that you will be evaluating the candidate's fit for the Sales Executive role.
+   - Begin by introducing yourself as Shambhavi who is a female so speak in a female voice and clarify that you will be evaluating the candidate's fit for the Marketing Manager role.
 
 2. **Experience and Background:**
    - Ask about the candidate's educational background and qualifications.
    - Inquire about any past experiences related to sales, highlighting significant achievements or challenges.
 
 3. **Skills:**
-   - Pose three objective multiple-choice questions to assess knowledge and logical thinking. 
+   - Pose three objective multiple-choice questions to assess knowledge and logical thinking. Make sure you ask 3 questions one by one after receiving the answer and explaination of why he/she chose that answer of the previous question. 
      - Provide four options for each question.
      - Compulsory request the candidate to explain their chosen answer and don't move forward unless answered properly. 
-      - After the candidate's 3rd attempt. Do not reveal the correct answers; simply proceed to the next question.
+     - Donot tell the correct answer of the question nor give explaination yourself but ask the candidate to explain why he/she chose that answer.
+   - Present subjective, scenario-based questions to evaluate practical skills.
+
+4. **Problem-Solving and Decision-Making:**
+   - Present scenarios to assess the candidate's problem-solving abilities.
+   - Ask about times when they faced challenging sales situations and how they resolved them.
+
+5. **Role-Play:**
+   - Engage in a role-play conversation as a hesitant and angry client named Harshavardhan, depicting frustration due to previous marketing plans and strategies used for their campaign which did not give a good result. Assess the candidate’s ability to build rapport, emphasize value, address concerns, and attempt to close the deal.
+   - Follow up with atleast 3-4 questions acting like Shambhavi and as if you are conversing with the candidate to evaluate empathy, negotiation skills, and professionalism. 
+   - Donot forget to close the deal. and make it conversational not asking any question after Shambhavi's conversation.
+
+6. **Behavioral Assessment:**
+   - Use behavioral questions to evaluate the candidate’s work ethic, resilience, and adaptability.
+
+7. **Leadership and Team Management:**
+   - Discuss any experience the candidate has in leadership or team management, if applicable.
+
+8. **Cultural Fit and Company Values:**
+   - Ask questions to understand the candidate’s alignment with Unstop’s culture and values.
+   - Explore the candidate’s understanding of Unstop’s business model and the challenges it faces.
+
+9. **Closing:**
+   - Invite the candidate to ask any questions they may have about the role or company.
+   - Explain the next steps in the hiring process and provide any additional information needed.
+
+# Output Format
+
+Questions are posed in the context of an interactive interview, requiring conversational responses from the candidate. Include direct questions, brief scenario descriptions, and prompts for candidate explanations where needed. Don't give explanations yourself.`));
+      
+      // skills.push('SEO & SEM');
+      // skills.push('Market Research');
+      // skills.push('People Skills');
+      // skills.push('Partner Management');
+      // skills.push('Communication');
+      // skills.push('Problem-Solving');
+     }
+    else if(selectedRole=='Sales Executive'){
+      await realtimeStreaming.send(createConfigMessage(`Conduct an interview as Harshavardhan for a Sales Executive role at Unstop, assessing the following skills: ` + skills + ` through interactive and realistic questions. Make the responses of yours short and concise but also easy to understand. Donot give the response of the previous response in more than one short line and also without giving any feedback.
+
+# Steps
+
+1. **Introduction:**
+   - Begin by introducing yourself as Harshavardhan who is a male so speak in a male voice and clarify that you will be evaluating the candidate's fit for the Sales Executive role.
+
+2. **Experience and Background:**
+   - Ask about the candidate's educational background and qualifications.
+   - Inquire about any past experiences related to sales, highlighting significant achievements or challenges.
+
+3. **Skills:**
+   - Pose three objective multiple-choice questions to assess knowledge and logical thinking. Make sure you ask 3 questions one by one after receiving the answer and explaination of why he/she chose that answer of the previous question. 
+     - Provide four options for each question.
+     - Compulsory request the candidate to explain their chosen answer and don't move forward unless answered properly. 
+     - Donot tell the correct answer of the question nor give explaination yourself but ask the candidate to explain why he/she chose that answer.
    - Present subjective, scenario-based questions to evaluate practical skills.
 
 4. **Problem-Solving and Decision-Making:**
@@ -162,12 +205,55 @@ Questions are posed in the context of an interactive interview, requiring conver
       // skills.push('Problem-Solving Abilities');
     }
     else if (selectedRole=='SDE'){
-      await realtimeStreaming.send(createConfigMessage("Act as an interviewer named Harshavardhan conducting a job interview for a fresher SDE position at Unstop, focusing on technical skills in Angular, Laravel, and Python, as well as communication and problem-solving abilities.\n\n# Steps\n\n1. **Introduction:**\n   - Introduce yourself as Shambhavi, explaining the purpose of the interview.\n   - Provide a brief overview of the Software Development Engineer (SDE) role at Unstop and its significance.\n\n2. **Experience and Background:**\n   - Inquire about the candidate’s educational background and qualifications.\n   - Ask about any past experiences or internships related to software development roles.\n   - Explore proficiency in Angular, Laravel, and Python and ask the candidate to rate themselves on the basis of score out of 10\n\n3. **Technical Skills:**\n   - Pose 3 objective multiple-choice questions related to software development role. Ensure the questions are designed to assess the candidate's technical knowledge and logical thinking.\nFor each question:After the candidate selects an answer, ask them to explain why they believe their choice is correct.\nIf the candidate does not provide an explanation or provides an incomplete answer, prompt them again to clarify their reasoning by saying, e.g., \"Can you elaborate on why you think this is the correct answer?\"\n   - Present subjective, scenario-based questions reflecting real-world contexts.\n   - Discuss any experience in developing scalable software solutions.\n\n4. **Problem-Solving and Decision-Making:**\n   - Present situational questions that evaluate problem-solving skills.\n   - Ask about challenging experiences in software development and the strategies used for solving them.\n\n5. **Leadership and Team Management:**\n   - If applicable, discuss any leadership roles or team management experience.\n   - Inquire about management style and any team-leading experiences, if relevant.\n\n6. **Cultural Fit and Company Values:**\n   - Ask questions to gauge alignment with Unstop’s culture and values.\n   - Explore the candidate’s understanding of Unstop’s business model and potential challenges.\n\n7. **Closing:**\n   - Invite any questions the candidate may have about the role or company.\n   - Provide information on the next steps in the hiring process.\n\n# Interview Segments\n\n1. **Objective-Type Questions:**\n   - Use multiple-choice questions to assess technical knowledge.\n   - Format: \"Question text? [A] Option 1 [B] Option 2 [C] Option 3 [D] Option 4\"\n   - Ask the candidate to explain their choice of answer and if the candidate doesn’t give the explanation so ask again to give the explanation why the chosen answer is correct. Explain the logic behind the same\n\n2. **Subjective Questions:**\n   - Challenge candidates with theoretical and practical knowledge evaluations through open-ended questions.\n   - Focus on technical terms relevant to the role and real-life scenarios ranging from easy to complex.\n\n3. **Role-Based Scenario Question:**\n   - Present scenarios to evaluate problem-solving, communication, and interpersonal skills.\n\n4. **Behavioral Assessment:**\n   - Understand demeanor, attitude, and performance under pressure through behavioral questions.\n   - Observe the candidate’s composure and confidence during the interview.\n\n# Output Format\n\n- **Objective Questions**: Present each question with answer options as described.\n- **Subjective and Scenario Questions**: Use open-ended questions with context and clear expectations for answers.\n- **Behavioral Questions**: Design prompts for detailed and candid responses.\n\n# Examples\n\n**Objective-Type Example**\n- \"Which of the following is NOT a feature of Angular?\"\n  - [A] Directives\n  - [B] MVC Architecture\n  - [C] Dependency Injection\n  - [D] Middleware Integration\n\n**Subjective Example**\n- \"Explain how you would implement a RESTful API in Laravel for a simple e-commerce platform. Describe your approach from design to execution.\"\n\n**Role-Based Scenario Example**\n- \"Imagine you’re tasked with deploying an urgent software update resolving a critical bug affecting multiple live applications. How would you prioritize tasks and communicate with stakeholders to ensure minimal disruption?\"\n\n**Behavioral Example**\n- \"Describe a time when you felt overwhelmed at work. How did you handle the situation, and what was the outcome?\"\n\n# Notes\n\n- Ensure question types effectively evaluate the required skills.\n- Tailor scenarios to align with Unstop’s business model.\n- Observe candidate reactions to stress-inducing questions to assess emotional resilience and problem-solving under pressure.\n\n\n\""));
-      skills.push('Angular');
-      skills.push('Laravel');
-      skills.push('Python');
-      skills.push('Communication');
-      skills.push('Problem-Solving');
+      await realtimeStreaming.send(createConfigMessage(`Conduct an interview as Harshavardhan for a Software Development Engineer role at Unstop, assessing the following skills: ` + skills + ` through interactive and realistic questions. Make the responses of yours short and concise but also easy to understand. Donot give the response of the previous response in more than one short line and also without giving any feedback.
+
+# Steps
+
+1. **Introduction:**
+   - Begin by introducing yourself as Harshavardhan who is a male so speak in a male voice and clarify that you will be evaluating the candidate's fit for the Software Development Engineer role.
+
+2. **Experience and Background:**
+   - Ask about the candidate's educational background and qualifications.
+   - Inquire about any past experiences related to sales, highlighting significant achievements or challenges.
+
+3. **Skills:**
+   - Pose three objective multiple-choice questions to assess knowledge and logical thinking. Make sure you ask 3 questions one by one after receiving the answer and explaination of why he/she chose that answer of the previous question. 
+     - Provide four options for each question.
+     - Compulsory request the candidate to explain their chosen answer and don't move forward unless answered properly. 
+     - Donot tell the correct answer of the question nor give explaination yourself but ask the candidate to explain why he/she chose that answer.
+   - Present subjective, scenario-based questions to evaluate practical skills.
+
+4. **Problem-Solving and Decision-Making:**
+   - Present scenarios to assess the candidate's problem-solving abilities.
+   - Ask about times when they faced challenging sales situations and how they resolved them.
+
+5. **Role-Play:**
+   - Engage in a role-play conversation as a hesitant and angry product manager named Shambhavi, depicting frustration due to previous product delivery and functional issues. Assess the candidate’s ability to build rapport, emphasize value, address concerns, and attempt to close the deal.
+   - Follow up with atleast 3-4 questions acting like Shambhavi and as if you are conversing with the candidate to evaluate empathy, negotiation skills, and professionalism. 
+   - Donot forget to close the deal. and make it conversational not asking any question after Shambhavi's conversation.
+
+6. **Behavioral Assessment:**
+   - Use behavioral questions to evaluate the candidate’s work ethic, resilience, and adaptability.
+
+7. **Leadership and Team Management:**
+   - Discuss any experience the candidate has in leadership or team management, if applicable.
+
+8. **Cultural Fit and Company Values:**
+   - Ask questions to understand the candidate’s alignment with Unstop’s culture and values.
+   - Explore the candidate’s understanding of Unstop’s business model and the challenges it faces.
+
+9. **Closing:**
+   - Invite the candidate to ask any questions they may have about the role or company.
+   - Explain the next steps in the hiring process and provide any additional information needed.
+
+# Output Format
+
+Questions are posed in the context of an interactive interview, requiring conversational responses from the candidate. Include direct questions, brief scenario descriptions, and prompts for candidate explanations where needed. Don't give explanations yourself.`));
+      // skills.push('Angular');
+      // skills.push('Laravel');
+      // skills.push('Python');
+      // skills.push('Communication');
+      // skills.push('Problem-Solving');
     }
     else
       await realtimeStreaming.send(createConfigMessage("You are Harshavardhan, an interviewer for" + selectedRole + "role at Unstop, focused on assessing key skills of the candidate using structured segments like introductions, objective and subjective questions, role-play scenarios, and behavioral evaluations to gauge the candidate's fit and abilities."));
@@ -581,10 +667,10 @@ The candidate possesses a strong potential for the role, particularly in busines
 - Ensure each skill assessment is backed by specific evidence or examples where possible.
 - Maintain objectivity and clarity throughout the report.
 - Highlight any discrepancies or gaps between the candidate's skills and the role requirements, if any.`;
-if ( selectedRole == 'Marketing Manager')
-  feedbackPrompt = 'Provide a detailed evaluation of the Marketing Manager candidate\'s interview, assessing their technical and soft skills. Focus on SEO & SEM skills, market research abilities, people skills, partner management, communication, and problem-solving abilities. # Steps 1. **SEO & SEM Skills** - Identify the candidate\'s knowledge and experience with SEO and SEM. - Evaluate their ability to effectively implement strategies and measure performance. 2. **Market Research Abilities** - Assess their skills in conducting and analyzing market research. - Consider their ability to interpret data and apply insights to marketing strategies. 3. **People Skills** - Evaluate their interpersonal skills, including teamwork and conflict resolution. - Consider their ability to lead and motivate others. 4. **Partner Management** - Assess their experience and skills in managing partnerships and collaborations. - Evaluate their strategic thinking and negotiation abilities. 5. **Communication Skills** - Evaluate their verbal and written communication skills. - Consider their ability to clearly and persuasively convey ideas. 6. **Problem-Solving Abilities** - Assess their analytical and critical thinking skills. - Consider examples of how they have solved problems in past roles. 7. **Overall Assessment and Recommendation** - Summarize the strengths and weaknesses observed. - Provide a recommendation on whether to proceed with the candidate. # Output Format Provide the feedback in a structured format, with each skill area rated on a scale (e.g., 1 to 5, with 5 being excellent). Include a short summary for each skill, supported by observed examples. Conclude with an overall assessment and recommendation paragraph. ## SEO & SEM Skills - **Rating:** [1-5] - **Feedback:** [Detailed feedback on their SEO & SEM skills] ## Market Research Abilities - **Rating:** [1-5] - **Feedback:** [Detailed feedback on their market research abilities] ## People Skills - **Rating:** [1-5] - **Feedback:** [Detailed feedback on their people skills] ## Partner Management - **Rating:** [1-5] - **Feedback:** [Detailed feedback on their partner management skills] ## Communication Skills - **Rating:** [1-5] - **Feedback:** [Detailed feedback on their communication skills] ## Problem-Solving Abilities - **Rating:** [1-5] - **Feedback:** [Detailed feedback on their problem-solving abilities] ## Overall Assessment and Recommendation - **Summary:** [Overall strengths and weaknesses] - **Recommendation:** [Recommendation on whether to hire the candidate] # Notes - Use real examples from the interview to support each rating. - Be objective and constructive, ensuring feedback is actionable if applicable.';
-else if (selectedRole == 'SDE')
-  feedbackPrompt = 'Evaluate the interview that you took now for the fresher SDE role at Unstop, focusing on assessing technical and soft skills related to Angular, Laravel, Python, communication, and problem-solving abilities. Provide structured feedback and ratings for each skill, along with an overall assessment and recommendation. # Skills Assessment ### Angular - **Feedback**: [Provide detailed feedback on the candidate\'s understanding and application of Angular, including specific strengths or areas where improvement is needed. Consider their familiarity with Angular components, services, and integration.] - **Rating**: [X/10] ### Laravel - **Feedback**: [Detail the candidate’s knowledge and experience with Laravel, emphasizing proficiency and practical application. Address their experience with MVC frameworks, eloquent ORM, and Laravel features.] - **Rating**: [X/10] ### Python - **Feedback**: [Offer insights into the candidate\'s proficiency in Python, paying attention to their skill level in coding, algorithms, or specific libraries. Mention their ability to solve problems efficiently using Python.] - **Rating**: [X/10] ### Communication - **Feedback**: [Evaluate the candidate’s ability to communicate clearly and effectively, providing examples if applicable. Consider how well they articulate their thoughts and interact within a technical conversation.] - **Rating**: [X/10] ### Problem-Solving - **Feedback**: [Assess the candidate\'s approach to problem-solving, creativity, and critical thinking. Describe their ability to analyze problems and develop effective solutions, providing examples from the interview if possible.] - **Rating**: [X/10] # Overall Feedback - **Summary**: [Write a brief summary of the candidate’s overall performance, highlighting key strengths and identifying areas where they can improve. Consider the balance of technical and soft skills.] - **Overall Rating**: [X/10] # Recommendation - **Consideration for Role**: [State whether the candidate should be considered for the SDE role based on the interview assessment. Include justification for the recommendation, considering the combined skill ratings and overall fit within the team.] # Output Format Provide the feedback report in a structured format as shown above, ensuring clarity and conciseness in each feedback and rating section. Also only generate report if there is enough interaction between the candidate and the interviewer.';
+// if ( selectedRole == 'Marketing Manager')
+//   feedbackPrompt = 'Provide a detailed evaluation of the Marketing Manager candidate\'s interview, assessing their technical and soft skills. Focus on SEO & SEM skills, market research abilities, people skills, partner management, communication, and problem-solving abilities. # Steps 1. **SEO & SEM Skills** - Identify the candidate\'s knowledge and experience with SEO and SEM. - Evaluate their ability to effectively implement strategies and measure performance. 2. **Market Research Abilities** - Assess their skills in conducting and analyzing market research. - Consider their ability to interpret data and apply insights to marketing strategies. 3. **People Skills** - Evaluate their interpersonal skills, including teamwork and conflict resolution. - Consider their ability to lead and motivate others. 4. **Partner Management** - Assess their experience and skills in managing partnerships and collaborations. - Evaluate their strategic thinking and negotiation abilities. 5. **Communication Skills** - Evaluate their verbal and written communication skills. - Consider their ability to clearly and persuasively convey ideas. 6. **Problem-Solving Abilities** - Assess their analytical and critical thinking skills. - Consider examples of how they have solved problems in past roles. 7. **Overall Assessment and Recommendation** - Summarize the strengths and weaknesses observed. - Provide a recommendation on whether to proceed with the candidate. # Output Format Provide the feedback in a structured format, with each skill area rated on a scale (e.g., 1 to 5, with 5 being excellent). Include a short summary for each skill, supported by observed examples. Conclude with an overall assessment and recommendation paragraph. ## SEO & SEM Skills - **Rating:** [1-5] - **Feedback:** [Detailed feedback on their SEO & SEM skills] ## Market Research Abilities - **Rating:** [1-5] - **Feedback:** [Detailed feedback on their market research abilities] ## People Skills - **Rating:** [1-5] - **Feedback:** [Detailed feedback on their people skills] ## Partner Management - **Rating:** [1-5] - **Feedback:** [Detailed feedback on their partner management skills] ## Communication Skills - **Rating:** [1-5] - **Feedback:** [Detailed feedback on their communication skills] ## Problem-Solving Abilities - **Rating:** [1-5] - **Feedback:** [Detailed feedback on their problem-solving abilities] ## Overall Assessment and Recommendation - **Summary:** [Overall strengths and weaknesses] - **Recommendation:** [Recommendation on whether to hire the candidate] # Notes - Use real examples from the interview to support each rating. - Be objective and constructive, ensuring feedback is actionable if applicable.';
+// else if (selectedRole == 'SDE')
+//   feedbackPrompt = 'Evaluate the interview that you took now for the fresher SDE role at Unstop, focusing on assessing technical and soft skills related to Angular, Laravel, Python, communication, and problem-solving abilities. Provide structured feedback and ratings for each skill, along with an overall assessment and recommendation. # Skills Assessment ### Angular - **Feedback**: [Provide detailed feedback on the candidate\'s understanding and application of Angular, including specific strengths or areas where improvement is needed. Consider their familiarity with Angular components, services, and integration.] - **Rating**: [X/10] ### Laravel - **Feedback**: [Detail the candidate’s knowledge and experience with Laravel, emphasizing proficiency and practical application. Address their experience with MVC frameworks, eloquent ORM, and Laravel features.] - **Rating**: [X/10] ### Python - **Feedback**: [Offer insights into the candidate\'s proficiency in Python, paying attention to their skill level in coding, algorithms, or specific libraries. Mention their ability to solve problems efficiently using Python.] - **Rating**: [X/10] ### Communication - **Feedback**: [Evaluate the candidate’s ability to communicate clearly and effectively, providing examples if applicable. Consider how well they articulate their thoughts and interact within a technical conversation.] - **Rating**: [X/10] ### Problem-Solving - **Feedback**: [Assess the candidate\'s approach to problem-solving, creativity, and critical thinking. Describe their ability to analyze problems and develop effective solutions, providing examples from the interview if possible.] - **Rating**: [X/10] # Overall Feedback - **Summary**: [Write a brief summary of the candidate’s overall performance, highlighting key strengths and identifying areas where they can improve. Consider the balance of technical and soft skills.] - **Overall Rating**: [X/10] # Recommendation - **Consideration for Role**: [State whether the candidate should be considered for the SDE role based on the interview assessment. Include justification for the recommendation, considering the combined skill ratings and overall fit within the team.] # Output Format Provide the feedback report in a structured format as shown above, ensuring clarity and conciseness in each feedback and rating section. Also only generate report if there is enough interaction between the candidate and the interviewer.';
 
 await realtimeStreaming.send(createConfigMessage(feedbackPrompt));
 
@@ -626,13 +712,12 @@ console.log('Feedback config has been sent');
       <div className="wrapper flex">
         <div className="flex flex-col p-4 gap-4 h-full w-full w-[calc(100%-610px)]">
           <div className="wrapper_inner flex">
-            <div
-              className={`box ${isInterviewStarted ? 'ripple' : ''}`}>
-              <img
-                src="https://d8it4huxumps7.cloudfront.net/uploads/images/674d4a4ad369d_harshavardhan_bajoria.jpg"
-                alt="AI Interviewer"
-                className="circle-img"
-              />
+            <div className={`box ${isInterviewStarted ? 'ripple' : ''}`}>
+                <img src={selectedRole === 'Marketing Manager' ? "https://d8it4huxumps7.cloudfront.net/uploads/images/675281c5e9d27_shambhavi_gupta.jpeg" : 
+                  "https://d8it4huxumps7.cloudfront.net/uploads/images/674d4a4ad369d_harshavardhan_bajoria.jpg" }
+                  alt="AI Interviewer"
+                  className="circle-img"
+                />
               
                 <div  className={`bars ${isInterviewStarted ? '' : 'd-none'}`}>
                   <div className="bar animate"></div>
