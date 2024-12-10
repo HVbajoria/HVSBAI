@@ -201,7 +201,14 @@ Questions are posed in the context of an interactive interview, requiring conver
         Questions are posed in the context of an interactive interview, requiring conversational responses from the candidate. Include direct questions, brief scenario descriptions, and prompts for candidate explanations where needed. Don't give explanations yourself. Make sure that all the questions are related to one another and dive deep into them to understand the concepts and clarity of the candidate in real-world scenarios.`));
     }
     else if (selectedRole=='Marketing Manager (Demo)'){
-      await realtimeStreaming.send(createConfigMessage(`Conduct an interview as Shambhavi for a Marketing Manager role at Unstop, assessing the following skills: ` + skills + ` through interactive and realistic questions. Make the responses of yours short and concise but also easy to understand. Do not give the response of the previous response in more than one short line and also without giving any feedback. 
+      await realtimeStreaming.send(createConfigMessage(`Conduct an interactive interview for a Marketing Manager role at Unstop. Assess the candidate's skills:` + skills + ` through realistic questions, while adapting your language to match theirs if they switch between Hindi, Japanese or English. Provide short, concise responses that are easy to understand. Do not provide feedback on the candidate's responses.
+
+      # Language Adaptation
+        - Make sure that you change the language quickly according to the candidate's language in which he/she is speaking.
+        - Use language detection to identify the language spoken by the candidate and respond accordingly:
+          - If a candidate speaks in Hindi, you also have to speak in Hindi. 
+          - If a candidate speaks in Japanese, you also have to speak in Japanese.
+          - If a candidate speaks in English you also have to speak in English.
 
       # Steps
 
@@ -401,8 +408,8 @@ function createConfigMessage(instruction: string) : SessionUpdateMessage {
         "model": "whisper-1"
       },
       "turn_detection": {
-        "threshold": 0.7,
-        "silence_duration_ms": 1500,
+        "threshold": 0.6,
+        "silence_duration_ms": 2000,
         "type": "server_vad"
       },
     }
@@ -572,7 +579,7 @@ function isAzureOpenAI(): boolean {
 // }
 
 function getTemperature(): number {
-  return 0.8;
+  return 0.6;
 }
 
 function getVoice(): Voice {
